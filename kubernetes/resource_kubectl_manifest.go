@@ -788,9 +788,9 @@ func checkAPIResourceIsPresent(available []*meta_v1.APIResourceList, resource me
 		}
 		group := rList.GroupVersion
 		for _, r := range rList.APIResources {
-			if group == resource.GroupVersionKind().GroupVersion().String() && r.Kind == resource.GetKind() {
-				r.Group = rList.GroupVersion
-				r.Kind = rList.Kind
+			if group == resource.GroupVersionKind().Group && r.Kind == resource.GroupVersionKind().Kind {
+				r.Group = resource.GroupVersionKind().Group
+				r.Version = resource.GroupVersionKind().Version
 				return &r, true
 			}
 		}
